@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesi Parking - Login</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Shadows Into Light -->
+    <link href="https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap" rel="stylesheet">
+    <style>
+        /* Custom font for the logo */
+        .font-shadows {
+          font-family: 'Shadows Into Light', cursive;
+        }
+        /* Gradient Button Styling */
+        .btn {
+          background: linear-gradient(90deg, #4f8ef7, #2962ff); /* Gradient effect */
+          transition: transform 0.3s, background 0.3s;
+        }
+        .btn:hover {
+          background: linear-gradient(90deg, #2962ff, #4f8ef7); /* Reverse gradient on hover */
+          transform: scale(1.1); /* Enlarge button */
+        }
+        /* Error message styling */
+        .error {
+          color: #e3342f; /* Red color for error */
+          font-size: 0.875rem;
+          margin-top: 0.25rem;
+        }
+        .error-message {
+          color: #e3342f;
+          font-size: 1rem;
+          margin-top: 1rem;
+          text-align: center;
+        }
+    </style>
+</head>
+<body class="bg-cover bg-center h-screen" style="background-image: url('images/login-bg.jpg');">
+<!-- Top Header Line -->
+<div class="absolute top-6 w-full h-2 bg-white z-50"></div> <!-- White line -->
+
+<!-- Container -->
+<div class="h-full w-full flex flex-col justify-center items-center bg-black bg-opacity-50 relative">
+    <!-- Logo in the Top Left -->
+    <div class="absolute top-12 left-6 flex items-center">
+        <img src="images/logo.jpg" alt="Lesi Parking Logo" class="w-10 h-10 mr-2">
+        <h1 class="text-white text-lg font-shadows">Lesi Parking</h1>
+    </div>
+
+    <!-- Login Card -->
+    <div class="bg-white bg-opacity-90 rounded-lg p-8 shadow-md w-4/5 max-w-md">
+        <h2 class="text-center text-xl font-bold text-gray-800 mb-6">LOGIN TO YOUR ACCOUNT</h2>
+
+        <!-- Display error message if it exists -->
+        <div class="error-message" id="serverError"></div>
+
+        <form action="javascript:void(0);" method="post" id="loginForm">
+            <!-- Username -->
+            <div class="mb-4">
+                <label for="username" class="block text-gray-700 font-medium mb-2">Username / Email Address:</label>
+                <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        class="w-full px-4 py-2 border rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Enter your username or email"
+                        required
+                        pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
+                <span class="error" id="usernameError"></span>
+            </div>
+
+            <!-- Password -->
+            <div class="mb-4">
+                <label for="password" class="block text-gray-700 font-medium mb-2">Password:</label>
+                <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        class="w-full px-4 py-2 border rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Enter your password"
+                        required
+                        minlength="6">
+                <span class="error" id="passwordError"></span>
+            </div>
+
+            <!-- Login Button -->
+            <div class="flex justify-center mb-4">
+                <button
+                        type="submit"
+                        class="btn text-white px-6 py-2 rounded-full focus:outline-none">LOGIN</button>
+            </div>
+
+            <!-- Sign Up Link -->
+            <p class="text-center text-gray-600">
+                Don’t have an account?
+                <a href="signUp.html" class="text-blue-600 hover:underline">Sign Up now</a>
+            </p>
+        </form>
+    </div>
+
+    <!-- Footer Line -->
+    <div class="absolute bottom-6 w-full h-2 bg-white z-50"></div> <!-- White footer line -->
+</div>
+
+<!-- JavaScript for Validation -->
+<script>
+    document.getElementById('loginForm').onsubmit = function (e) {
+        let isValid = true;
+
+        // Clear previous error messages
+        document.getElementById('usernameError').textContent = '';
+        document.getElementById('passwordError').textContent = '';
+        document.getElementById('serverError').textContent = '';
+
+        // Get user input values
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
+        // Hardcoded credentials with redirects
+        const validCredentials = [
+            { username: 'admin@gmail.com', password: 'Admin@123', redirect: 'slotsAdd.html' },
+            { username: 'mapa14@gmail.com', password: 'Mapa@1234', redirect: 'home2.html' }
+        ];
+
+        // Username validation (email format)
+        const usernameRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (!usernameRegex.test(username)) {
+            document.getElementById('usernameError').textContent = 'Invalid email address';
+            isValid = false;
+        }
+
+        // Password validation (at least one uppercase letter, one number, and one special character)
+        const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{6,}$/;
+        if (!passwordRegex.test(password)) {
+            document.getElementById('passwordError').textContent = 'Password must contain at least one uppercase letter, one number, and one special character.';
+            isValid = false;
+        }
+
+        // Check if credentials match any in the list
+        const user = validCredentials.find(cred => cred.username === username && cred.password === password);
+
+        if (!user) {
+            document.getElementById('serverError').textContent = 'Invalid username or password';
+            isValid = false;
+        }
+
+        // If validation fails, prevent form submission
+        if (!isValid) {
+            e.preventDefault();
+        } else {
+            // Redirect based on the matched user credentials
+            window.location.href = user.redirect;
+        }
+    };
+</script>
+
+
+</body>
+</html>

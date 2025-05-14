@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesi Parking - Pricing Plans</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .nav-animation {
+          transition: all 0.3s ease-in-out;
+        }
+        .nav-animation:hover {
+          transform: scale(1.1);
+        }
+        .fade-in {
+          animation: fadeIn 1s;
+        }
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        .highlight {
+          background: linear-gradient(90deg, rgba(34,197,94,1) 0%, rgba(5,150,105,1) 100%);
+          color: white;
+        }
+
+        .find-parking-btn {
+          position: absolute;
+          bottom: 20px;
+          right: 20px;
+          padding: 6px 12px;
+          background-color: #d1d5db; /* Tailwind's blue-500 */
+          color: black;
+          border-radius: 5px;
+          font-size: 16px;
+          font-weight: bold;
+          transition: background-color 0.3s;
+        }
+
+        .find-parking-btn:hover {
+          background-color: #333333; /* Tailwind's blue-600 */
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-gray-800 via-gray-900 to-black text-white">
+
+<!-- Navbar -->
+<nav class="bg-black bg-opacity-80 fixed top-0 w-full flex items-center p-4 shadow-md">
+    <div class="flex items-center space-x-4">
+        <img src="images/logo.jpg" alt="Lesi Parking Logo" class="h-10">
+        <span class="text-xl font-bold text-white">Lesi Parking</span>
+    </div>
+</nav>
+
+<!-- Content -->
+<div class="pt-20 px-6 md:px-12">
+    <h1 class="text-3xl md:text-5xl font-bold text-center fade-in mb-8">Choose Your Parking Plan</h1>
+
+    <!-- Price Plan Section -->
+    <section id="price-plan" class="py-16 px-6 bg-gray-800 relative" data-aos="fade-left" data-aos-duration="1000">
+        <div class="text-center max-w-4xl mx-auto">
+            <h2 class="text-3xl font-bold mb-6 text-white">Price Plan</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+                <!-- Daily Plan Box -->
+                <div class="price-card" data-aos="fade-up" data-aos-duration="1000">
+                    <h3 class="text-2xl font-semibold mb-4 text-white">Daily</h3>
+                    <ul class="text-lg text-gray-400">
+                        <li>Motor Bicycle - Rs. 500</li>
+                        <li>Car - Rs. 800</li>
+                        <li>Van - Rs. 1000</li>
+                        <li>Jeep - Rs. 1200</li>
+                        <li>Truck - Rs. 1500</li>
+
+                    </ul>
+                </div>
+
+                <!-- Weekly Plan Box -->
+                <div class="price-card" data-aos="fade-up" data-aos-duration="1000">
+                    <h3 class="text-2xl font-semibold mb-4 text-white">Weekly (7 days)</h3>
+                    <ul class="text-lg text-gray-400">
+                        <li>Motor Bicycle - Rs. 3400</li>
+                        <li>Car - Rs. 5500</li>
+                        <li>Van - Rs. 6800</li>
+                        <li>Jeep - Rs. 8300</li>
+                        <li>Truck - Rs. 10,300</li>
+                    </ul>
+                </div>
+
+                <!-- Monthly Plan Box -->
+                <div class="price-card" data-aos="fade-up" data-aos-duration="1000">
+                    <h3 class="text-2xl font-semibold mb-4 text-white">Monthly (30 days)</h3>
+                    <ul class="text-lg text-gray-400">
+                        <li>Motor Bicycle - Rs. 14,500</li>
+                        <li>Car - Rs. 25,000</li>
+                        <li>Van - Rs. 29,000</li>
+                        <li>Jeep - Rs. 35,000</li>
+                        <li>Truck - Rs. 44,000</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Centered Book Now Button Below Plans -->
+            <a href="booking.html">
+            <div class="mt-8 flex justify-center">
+                <button type="submit" class="px-6 py-3 bg-green-500 hover:bg-green-600 text-white rounded-lg font-semibold text-lg transition">
+                    Book Now
+                </button>
+            </div>
+            </a>
+        </div>
+
+        <!-- Find Parking Button -->
+        <a href="findParkingBooking.html" class="find-parking-btn">
+            Find Parking
+        </a>
+
+    </section>
+
+</div>
+
+<script>
+    const daily = document.getElementById('daily');
+    const weekly = document.getElementById('weekly');
+    const monthly = document.getElementById('monthly');
+    const dailyPrices = document.getElementById('dailyPrices');
+    const weeklyPrices = document.getElementById('weeklyPrices');
+    const monthlyPrices = document.getElementById('monthlyPrices');
+
+    daily.addEventListener('change', () => {
+      dailyPrices.classList.remove('hidden');
+      weeklyPrices.classList.add('hidden');
+      monthlyPrices.classList.add('hidden');
+    });
+
+    weekly.addEventListener('change', () => {
+      weeklyPrices.classList.remove('hidden');
+      dailyPrices.classList.add('hidden');
+      monthlyPrices.classList.add('hidden');
+    });
+
+    monthly.addEventListener('change', () => {
+      monthlyPrices.classList.remove('hidden');
+      dailyPrices.classList.add('hidden');
+      weeklyPrices.classList.add('hidden');
+    });
+</script>
+
+</body>
+</html>

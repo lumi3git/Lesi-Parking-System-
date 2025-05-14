@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Parking Booking</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- jQuery -->
+    <script src="js/jquery-3.7.1.js"></script>
+
+    <!-- Leaflet.js (For OpenStreetMap) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <script src="js/findParking.js"></script>
+
+    <style>
+        #map {
+            height: 400px; /* Adjust height as needed */
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="bg-opacity-70 bg-black text-white py-3 fixed w-full z-10 top-0 left-0 shadow-lg navbar">
+    <div class="container mx-auto flex items-center px-6">
+        <!-- Logo and Name Section, positioned in the left corner -->
+        <div class="logo-container flex items-center space-x-2 mr-auto">
+            <img src="images/logo.jpg" alt="Lesi Parking Logo" class="h-9">
+        </div>
+
+        <!-- Button Section, aligned to the right -->
+        <div class="flex space-x-4 ml-auto">
+            <!-- Book Now Button -->
+            <!-- Book Now Button -->
+            <a href="booking.html" onclick="confirmBooking()">
+                <button class="bg-gradient-to-r from-blue-500 to-purple-600 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-gradient-to-l transition duration-300">
+                    Book Now
+                </button>
+            </a>
+
+            <!-- Back to Home Button -->
+            <a href="home2.html">
+                <button class="bg-gradient-to-r from-gray-500 to-black text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-gradient-to-l transition duration-300">
+                    Back to Home
+                </button>
+            </a>
+        </div>
+    </div>
+</nav>
+
+<h2 class="text-2xl font-bold text-center mt-4">Find Parking Near You</h2>
+
+<!-- Map Container -->
+<div id="map" class="w-full h-96 mt-4"></div>
+
+<!-- Parking Slots Table -->
+<table class="min-w-full bg-gray-800 text-white border border-gray-700 rounded-lg mt-4">
+    <thead>
+    <tr>
+        <th class="py-3 px-4 border-b border-gray-100 text-left">Slot ID</th>
+        <th class="py-3 px-4 border-b border-gray-100 text-left">Location</th>
+        <th class="py-3 px-2 border-b border-gray-100 text-left">Slots Availability</th>
+        <th class="py-3 px-4 border-b border-gray-100 text-left"># of Slots Available</th>
+    </tr>
+    </thead>
+    <tbody id="slotTb">
+    <!-- Slot data will be populated here -->
+    </tbody>
+</table>
+
+<script>
+    // Initialize the map centered on Sri Lanka
+    var map = L.map('map').setView([7.8731, 80.7718], 7);
+
+    // Add OpenStreetMap tile layer
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    let markers = []; // Store markers to clear later
+
+    function viewSlot() {
+        $.ajax({
+            method: "GET",
+            url: "http://localhost:8080/api/v1/slot/getSlots",
+            async: true,
+            success: function (data) {
+                console.log("API Response:", data);
+
+                // Clear existing table data
+                $('#slotTb').empty();
+
+                // Remove previous markers
+                markers.forEach(marker => map.removeLayer(marker));
+                markers = [];
+
+                data.forEach(function(slo) {
+                    let slotId = slo.id;
+                    let area = slo.slotArea;
+                    let available = slo.availability ? "Yes" : "No";
+                    let count = slo.numOfslots;
+
+                    // Add slot information to the table
+                    let row = `<tr>
+                        <td>${slotId}</td>
+                        <td>${area}</td>
+                        <td>${available}</td>
+                        <td>${count}</td>
+                    </tr>`;
+                    $('#slotTb').append(row);
+
+                    // Add marker to map
+                    if (slo.lat && slo.lng) {
+                        let marker = L.marker([slo.lat, slo.lng]).addTo(map)
+                            .bindPopup(`<h3>${area}</h3><p>Availability: ${available}</p><p>Slots Available: ${count}</p>`);
+
+                        markers.push(marker); // Store marker reference
+                    }
+                });
+            },
+            error: function (xhr, exception) {
+                alert("Error Fetching Slots!");
+            }
+        });
+    }
+
+    // Fetch parking slots on page load
+    $(document).ready(function() {
+        viewSlot();
+    });
+</script>
+
+
+</body>
+</html>

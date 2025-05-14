@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesi Parking - Booking</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Poppins:wght@500&display=swap" rel="stylesheet">
+
+    <script src="js/jquery-3.7.1.js"></script>
+    <script src="js/booking.js"></script>
+    <script>
+        function updatePriceList() {
+            const plan = document.getElementById('plan').value;
+            const vehicleType = document.getElementById('vehicleType').value; // Get the selected vehicle type
+            const priceList = document.getElementById('priceList');
+            let prices = [];
+
+            // Define price options for all vehicle types
+            const vehiclePrices = {
+                'daily': {
+                    'motorcycle': 'Motor Bicycle - Rs. 500',
+                    'car': 'Car - Rs. 800',
+                    'van': 'Van - Rs. 1000',
+                    'jeep': 'Jeep - Rs. 1200',
+                    'truck': 'Truck - Rs. 1500'
+                },
+                'weekly': {
+                    'motorcycle': 'Motor Bicycle - Rs. 3500',
+                    'car': 'Car - Rs. 5000',
+                    'van': 'Van - Rs. 7000',
+                    'jeep': 'Jeep - Rs. 9000',
+                    'truck': 'Truck - Rs. 10000'
+                },
+                'monthly': {
+                    'motorcycle': 'Motor Bicycle - Rs. 15000',
+                    'car': 'Car - Rs. 25000',
+                    'van': 'Van - Rs. 36000',
+                    'jeep': 'Jeep - Rs. 45000',
+                    'truck': 'Truck - Rs. 15000'
+                }
+            };
+
+            // Only show the radio button for the selected vehicle type
+            if (vehicleType && plan) {
+                const selectedPlanPrices = vehiclePrices[plan];
+                const selectedVehiclePrice = selectedPlanPrices[vehicleType];
+
+                // Display the corresponding vehicle type price only
+                priceList.innerHTML = `
+                    <li><input type="radio" name="vehiclePrice" value="${selectedVehiclePrice}" class="mr-2" checked> ${selectedVehiclePrice}</li>
+                `;
+            } else {
+                priceList.innerHTML = '';
+            }
+        }
+    </script>
+
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(to bottom, #1e293b, #0f172a);
+            color: #ffffff;
+        }
+
+        .form-container {
+            background-color: #ffffff;
+            color: #000000;
+            position: relative;
+            padding-bottom: 60px; /* Adjust for space for the button */
+
+        }
+
+        .form-container input,
+        .form-container select {
+            background-color: #f1f5f9;
+            border-color: #94a3b8;
+            color: #000000;
+        }
+
+        .form-container input::placeholder {
+            color: #6b7280;
+        }
+
+        .navbar {
+            background: linear-gradient(to right, #334155, #1e293b);
+        }
+
+        .footer {
+            background: linear-gradient(to left, #1e293b, #0f172a);
+        }
+
+        .button {
+            background: linear-gradient(to right, #64748b, #475569);
+            color: #ffffff;
+        }
+
+        .button:hover {
+            background: linear-gradient(to right, #94a3b8, #64748b);
+        }
+
+        /* Back to Home Button Styling */
+        .back-to-home {
+            position: absolute;
+            bottom: 20px;
+            right: 20px; /* Positioned at the right bottom */
+            background-color: #34D399; /* Green color */
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .back-to-home:hover {
+            background-color: #10B981; /* Darker green on hover */
+        }
+    </style>
+</head>
+
+<body>
+<!-- New Navbar -->
+<nav class="bg-opacity-70 bg-black text-white py-3 fixed w-full z-10 top-0 left-0 shadow-lg navbar">
+    <div class="container mx-auto flex items-center px-6">
+        <!-- Logo and Name Section, positioned in the left corner -->
+        <div class="logo-container flex items-center space-x-2 mr-auto">
+            <img src="images/logo.jpg" alt="Lesi Parking Logo" class="h-9">
+            <div class="logo-text text-xl font-semibold">Lesi Parking</div>
+        </div>
+
+
+    </div>
+</nav>
+
+<!-- Booking Form -->
+<div class="form-container container mx-auto mt-24 p-8 shadow-lg rounded-lg">
+    <h1 class="text-3xl font-bold mb-1 text-center font-mono">Book Your Parking Spot</h1>
+
+    <form onsubmit="return confirmBooking();" class="space-y-6">
+        <div>
+            <label for="vehicleType" class="block text-m font-bold">Vehicle Type</label>
+            <select id="vehicleType" name="vehicleType" class="w-full mt-1 p-3 border rounded-lg focus:ring-2 focus:ring-gray-500 focus:outline-none">
+                <option value="" disabled selected>--Select Vehicle Type--</option>
+                <option value="motorcycle">Motor Bicycle</option>
+                <option value="car">Car</option>
+                <option value="van">Van</option>
+                <option value="jeep">Jeep</option>
+                <option value="truck">Truck</option>
+            </select>
+        </div>
+
+        <div>
+            <label for="vehicleNumber" class="block text-m font-bold">Vehicle Number</label>
+            <input type="text" id="vehicleNumber" name="vehicleNumber" class="w-full mt-1 p-2 border rounded-lg focus:ring-2 focus:ring-gray-500 focus:outline-none" placeholder="Enter vehicle number (e.g. AB-1234)" required>
+        </div>
+
+        <div>
+            <label for="bookingDate" class="block text-m font-bold">Booking Date</label>
+            <input type="date" id="bookingDate" name="bookingDate" class="w-full mt-1 p-2 border rounded-lg focus:ring-2 focus:ring-gray-500 focus:outline-none" required>
+        </div>
+
+        <div>
+            <label for="parkingSpot" class="block text-m font-bold">Parking Spot</label>
+            <select id="parkingSpot" name="parkingSpot" class="w-full mt-1 p-3 border rounded-lg focus:ring-2 focus:ring-gray-500 focus:outline-none">
+                <option value="" disabled selected>--Select Parking Spot--</option>
+            </select>
+        </div>
+
+        <div>
+            <label for="plan" class="block text-m font-bold">Select Plan</label>
+            <select id="plan" name="plan" class="w-full mt-1 p-3 border rounded-lg focus:ring-2 focus:ring-gray-500 focus:outline-none" onchange="updatePriceList()">
+                <option value="" disabled selected>--Select Plan--</option>
+                <option value="daily">Daily</option>
+                <option value="weekly">Weekly</option>
+                <option value="monthly">Monthly</option>
+            </select>
+        </div>
+
+        <div id="priceList" class="mt-4"></div> <!-- This will display the price options dynamically based on the plan -->
+
+        <button type="button" class="button px-6 py-2 text-lg font-bold rounded-lg" onclick="saveBooking()">Save Booking</button>
+
+
+    </form>
+
+    <!-- Back to Home Button inside the form container -->
+    <a href="home2.html" class="back-to-home">Back to Home</a>
+</div>
+
+<script>
+    function updatePriceList() {
+        const plan = document.getElementById('plan').value;
+        const vehicleType = document.getElementById('vehicleType').value;
+        const priceList = document.getElementById('priceList');
+
+        const vehiclePrices = {
+            'daily': { 'motorcycle': 500, 'car': 800, 'van': 1000, 'jeep': 1200, 'truck': 1500 },
+            'weekly': { 'motorcycle': 3500, 'car': 5000, 'van': 7000, 'jeep': 9000, 'truck': 10000 },
+            'monthly': { 'motorcycle': 15000, 'car': 25000, 'van': 36000, 'jeep': 45000, 'truck': 15000 }
+        };
+
+        if (vehicleType && plan) {
+            const selectedPrice = vehiclePrices[plan][vehicleType];
+
+            // Store the selected price in localStorage
+            localStorage.setItem('selectedPrice', selectedPrice);
+
+            // Display the price in the price list
+            priceList.innerHTML = `
+                <li><input type="radio" name="vehiclePrice" value="${selectedPrice}" class="mr-2" checked> Rs. ${selectedPrice}</li>
+            `;
+        } else {
+            priceList.innerHTML = '';
+        }
+    }
+
+    function proceedToPayment() {
+        window.location.href = 'payment.html';  // Redirect to payment page
+    }
+</script>
+
+<!-- Footer -->
+<footer class="footer text-white mt-1 py-4">
+    <div class="container mx-auto text-center">
+        <p class="text-sm">&copy; 2025 Lesi Parking. All rights reserved.</p>
+    </div>
+</footer>
+
+</body>
+
+</html>

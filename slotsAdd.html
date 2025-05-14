@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parking Analysis - Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Poppins:wght@500&display=swap" rel="stylesheet">
+
+    <script src="js/jquery-3.7.1.js"></script>
+    <script src="js/slotsAdd.js"></script>
+
+    <style>
+        body {
+            background-color: #B2B2B2; /* Ash gray */
+            overflow: hidden; /* Prevent scrolling */
+        }
+        .sidebar {
+            background-color: #000;
+            color: white;
+            width: 250px; /* Fixed width */
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding: 20px 10px;
+            box-sizing: border-box;
+            transition: all 0.3s ease-in-out;
+        }
+        .sidebar a {
+            display: block;
+            padding: 15px 23px;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            border-radius: 5px;
+            margin-bottom: 80px; /* Space between links */
+        }
+        .sidebar a:hover {
+            background-color: #333;
+            color: #00d1b2;
+        }
+        .sidebar a.active {
+            background-color: #00d1b2;
+            color: black;
+        }
+        .main-content {
+            margin-left: 250px; /* Sidebar width */
+            padding: 20px;
+            transition: margin-left 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+<!-- Sidebar -->
+<div class="sidebar">
+    <div class="text-center mb-6">
+        <img src="images/admin.jpg" alt="Admin" class="w-16 h-auto mx-auto">
+        <h2 class="text-lg font-bold mt-2">ADMIN</h2>
+    </div>
+    <a href="regiCutomerCRUD.html">REGISTER CUSTOMERS</a>
+    <!--<a href="/admin/emergency-parking">EMERGENCY PARKING</a> -->
+    <a href="slotsAdd.html" class="active">AVAILABLE SLOTS</a>
+
+    <a href="index.html" class="fixed bottom-5 left-10 bg-black text-white py-2 px-6 rounded-lg text-center shadow-lg hover:bg-gray-800">
+        Back to Home
+    </a>
+</div>
+
+<!-- Main Content -->
+<div class="main-content">
+    <h1 class="text-2xl font-bold text-center mb-6" style="font-family: Georgia, serif;">PARKING ANALYSIS</h1>
+
+    <!-- Search Bar -->
+    <div class="flex justify-center mb-6">
+        <input id="searchField" type="text" placeholder="Search..." class="px-3 py-2 border rounded-l-md w-64">
+        <button id="searchBtn" class="px-4 py-2 bg-gray-800 text-white rounded-r-md hover:bg-gray-600">🔍</button>
+    </div>
+
+    <form>
+    <!--INPUT FIELDS-->
+        <div class="container mt-5">
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label for="Id" class="slotLabel font-bold text-lg" >Slot ID</label>
+                    <input type="text" class="slotId w-full p-2 border rounded font-bold" id="Id" name="Id" disabled placeholder="Slot ID">
+                </div>
+                <div>
+                    <label for="loc" class="slotLabel font-bold text-lg">Location</label>
+                    <input type="text" class="location w-full p-2 border rounded font-bold" id="loc" name="loc" placeholder="Location">
+                </div>
+                <div>
+                    <label for="availa" class="slotLabel font-bold text-lg">Slot Availability</label>
+                    <input type="text" class="availability w-full p-2 border rounded font-bold" id="availa" name="availa" placeholder="If AVAILABLE - True">
+                </div>
+                <div>
+                    <label for="numSlots" class="slotLabel font-bold text-lg">Number of Slots</label>
+                    <input type="text" class="numOfSlots w-full p-2 border rounded font-bold" id="numSlots" name="numSlots" placeholder="number Of Slots">
+                </div>
+            </div>
+        </div>
+
+
+        <!-- BUTTONS -->
+    <div class="flex justify-center gap-4 mt-10">
+
+        <button type="button" class="px-4 py-2 bg-green-700 text-white rounded-md hover:bg-green-600" onclick="saveSlot()">Add Slot</button>
+        <button type="button" class="px-4 py-2 bg-green-700 text-white rounded-md hover:bg-green-600" onclick="updateSlot()">Update Slot</button>
+        <button type="button" class="px-4 py-2 bg-green-700 text-white rounded-md hover:bg-green-600" onclick="deleteSlot()">Delete Slot</button>
+       <!-- <button type="button" class="px-4 py-2 bg-green-700 text-white rounded-md hover:bg-green-600" onclick="viewSlot()">View Slot</button>-->
+
+    </div>
+    </form>
+    <!-- Locations Slots Availability Table -->
+    <div class="overflow-x-auto mt-10">
+        <table class="min-w-full bg-gray-800 text-white border border-gray-700 rounded-lg">
+            <thead>
+            <tr>
+                <th class="py-3 px-4 border-b border-gray-100 text-left">Slot ID</th>
+                <th class="py-3 px-4 border-b border-gray-100 text-left">Location</th>
+                <th class="py-3 px-2 border-b border-gray-100 text-left">Slots Availability</th>
+                <th class="py-3 px-4 border-b border-gray-100 text-left"># of Slots Availabile</th>
+            </tr>
+            </thead>
+            <tbody id="slotTb">
+
+
+            </tbody>
+        </table>
+    </div>
+
+
+
+
+</div>
+
+<!--<script>
+    // Validate the search input
+    document.getElementById('searchBtn').addEventListener('click', function() {
+        const searchField = document.getElementById('searchField');
+        if (searchField.value.trim() === '') {
+            alert('Please enter a search term.');
+        } else {
+            alert(`Searching for: ${searchField.value}`);
+            // Add actual search logic here
+        }
+    });
+
+    // Handle button actions
+    function handleAction(action) {
+        alert(`${action} button clicked!`);
+        // Add actual logic for each button action
+    }
+
+</script>-->
+<script>
+    // Validate the search input
+    document.getElementById('searchBtn').addEventListener('click', function() {
+        const searchField = document.getElementById('searchField');
+        if (searchField.value.trim() === '') {
+            alert('Please enter a search term.');
+        } else {
+            alert(Searching for: ${searchField.value});
+            // Add actual search logic here
+        }
+    });
+
+    // Handle button actions
+    function handleAction(action) {
+        alert(${action} button clicked!);
+        // Add actual logic for each button action
+    }
+
+    document.getElementById('searchBtn').addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent form submission
+
+        const searchValue = document.getElementById('searchField').value.trim().toLowerCase();
+        const tableRows = document.querySelectorAll("#slotTb tr");
+
+        tableRows.forEach(row => {
+            const locationCell = row.cells[1].textContent.trim().toLowerCase(); // Location is in the 2nd column
+            if (locationCell.includes(searchValue)) {
+                row.style.display = "";
+            } else {
+                row.style.display = "none";
+            }
+        });
+    });
+
+</script>
+</body>
+</html>

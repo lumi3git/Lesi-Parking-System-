@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesi Parking - Booking Confirmation</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Custom Styling -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(to bottom right, #0047ab, #00c6ab);
+            min-height: 100vh;
+            color: #2a2a2a;
+        }
+        .fade-in {
+            animation: fadeIn 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body class="relative">
+
+<!-- Header -->
+<header class="absolute top-2 left-2 flex items-center space-x-2">
+    <img src="images/logo.jpg" alt="Lesi Parking Logo" class="h-12 w-15">
+    <span class="text-cyan-100 text-xl font-bold">LESI PARKING</span>
+</header>
+
+<!-- Main Content -->
+<main class="flex items-center justify-center min-h-screen px-2">
+    <div class="bg-white rounded-lg shadow-md p-8 max-w-md w-full fade-in">
+        <!-- Success Animation -->
+        <div class="flex justify-center mb-4">
+            <div class="bg-teal-100 text-teal-500 p-6 rounded-full shadow-xl">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-3-3a1 1 0 011.414-1.414L9 11.586l6.293-6.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+            </div>
+        </div>
+
+        <!-- Confirmation Message -->
+        <h1 class="text-3xl font-bold text-center text-gray-700 mb-2">
+            Booking Confirmed!
+        </h1>
+        <p class="text-center text-lg text-gray-600 mb-4 leading-snug">
+            Thank you for choosing <strong>Lesi Parking System</strong>. Your booking has been successfully confirmed.
+        </p>
+
+        <!-- Illustration -->
+        <div class="flex justify-center mb-4">
+            <img src="images/book.jpg" alt="Illustration" class="h-40 w-auto rounded-xl shadow-sm">
+        </div>
+
+        <!-- Button -->
+        <a href="home2.html">
+        <div class="text-center">
+            <button id="backToHome"
+                    class="bg-purple-600 text-white text-lg px-4 py-2 rounded hover:bg-purple-700 transition-transform transform hover:scale-105">
+                Back to Home
+            </button>
+        </div>
+        </a>
+    </div>
+</main>
+
+<!-- Footer -->
+<footer class="absolute bottom-2 w-full text-center text-gray-300 text-xs">
+    © 2024 Lesi Parking System | All rights reserved.
+</footer>
+
+<!-- JavaScript -->
+<script>
+    // Button functionality with regex validation
+    document.getElementById('backToHome').addEventListener('click', function() {
+        const text = "Welcome to Lesi Parking!";
+        const regex = /Lesi Parking/i;
+        if (regex.test(text)) {
+            alert("You are being redirected to Home.");
+            window.location.href = "/";
+        }
+    });
+</script>
+</body>
+</html>

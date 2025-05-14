@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Lesi Parking - Easy Parking Booking and Management">
+    <title>Lesi Parking - Home</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Poppins:wght@500&display=swap" rel="stylesheet">
+
+    <script src="js/jquery-3.7.1.js"></script>
+
+    <style>
+        .hero {
+          background-image: url('images/2.jpg');
+          background-size: cover;
+          background-position: center;
+          height: 100vh;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+        }
+        .text-box {
+          background-color: rgba(0, 0, 0, 0.6);
+          color: white;
+          padding: 2rem;
+          border-radius: 1rem;
+          font-size: 1.25rem;
+          line-height: 1.6;
+          width: 95%;
+          max-width: 1000px;
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        .get-started-btn {
+          margin-top: 2.5rem;
+        }
+        .card {
+          background-color: #1F2937;
+          padding: 1.5rem;
+          border-radius: 0.75rem;
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+          width: 100%;
+        }
+        .card:hover {
+          transform: translateY(-10px);
+          box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+        .price-card {
+          background-color: #2D3748;
+          padding: 1.5rem;
+          border-radius: 0.75rem;
+          width: 100%;
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .price-card:hover {
+          transform: translateY(-10px);
+          box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .navbar {
+          position: relative;
+        }
+
+        /* Position logo and text in the left corner */
+        .navbar .logo-container {
+          position: absolute;
+          left: 0;
+          top: 8;
+          display: flex;
+          align-items: center;
+          margin-left: 20px;
+        }
+
+        .logo-text {
+          font-family: 'Arial', sans-serif;
+          font-size: 24px;
+          font-weight: 600;
+          color: white;
+          margin-left: 10px;
+          vertical-align: middle;
+        }
+
+        .navbar + .hero {
+          margin-top: 75px;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased bg-gray-900">
+
+<!-- Navbar -->
+<nav class="bg-opacity-70 bg-black text-white py-4 fixed w-full z-10 top-0 left-0 shadow-lg navbar">
+    <div class="container mx-auto flex justify-between items-center px-6">
+        <!-- Logo and Name Section, positioned in the left corner -->
+        <div class="logo-container flex items-center">
+            <img src="images/logo.jpg" alt="Lesi Parking Logo" class="h-9">
+            <div class="logo-text">
+                Lesi Parking
+            </div>
+        </div>
+
+        <!-- Navigation Links -->
+        <ul class="flex space-x-8 text-lg ml-auto">
+            <li><a href="#home" class="hover:text-gray-400 transition duration-300">Home</a></li>
+            <li><a href="#price-plan" class="hover:text-gray-400 transition duration-300">Price Plan</a></li>
+            <li><a href="findParkingView.html" class="hover:text-gray-400 transition duration-300">Find Parking</a></li>
+            <li><a href="#about" class="hover:text-gray-400 transition duration-300">About</a></li>
+            <li><a href="#features" class="hover:text-gray-400 transition duration-300">Features</a></li>
+            <li><a href="#contact" class="hover:text-gray-400 transition duration-300">Contact</a></li>
+        </ul>
+
+        <a href="login.html" class="bg-gray-800 hover:bg-gray-700 text-white py-2 px-6 rounded-full text-xl transition duration-300 ml-auto">
+            Log in
+        </a>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<section id="home" class="hero">
+    <div class="text-center px-6 py-10 max-w-xl mx-auto">
+        <!-- Text Box -->
+        <div class="text-box">
+            <h1 class="text-4xl md:text-5xl font-bold mb-6">
+                Simplify Your Parking Experience with Lesi Parking
+            </h1>
+            <p class="text-lg md:text-xl mb-6">
+                Say goodbye to parking stress! Book, pay, and manage your parking spot with ease, all in one platform.
+            </p>
+        </div>
+
+        <!-- Get Started Button placed under the box -->
+        <div class="flex justify-center items-center mt-8">
+            <a href="signUp.html" class="bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-8 rounded-full text-xl transition duration-300 transform hover:scale-105">
+                Get Started Now
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Price Plan Section -->
+<section id="price-plan" class="py-16 px-6 bg-gray-800" data-aos="fade-left" data-aos-duration="1000">
+    <div class="text-center max-w-4xl mx-auto">
+        <h2 class="text-3xl font-bold mb-6 text-white">Price Plan</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+            <!-- Daily Plan Box -->
+            <div class="price-card" data-aos="fade-up" data-aos-duration="1000">
+                <h3 class="text-2xl font-semibold mb-4 text-white">Daily</h3>
+                <ul class="text-lg text-gray-400">
+                    <li>Motor Bicycle - Rs. 500</li>
+                    <li>Car - Rs. 800</li>
+                    <li>Van - Rs. 1000</li>
+                    <li>Jeep - Rs. 1200</li>
+                    <li>Truck - Rs. 1500</li>
+                </ul>
+            </div>
+
+            <!-- Weekly Plan Box -->
+            <div class="price-card" data-aos="fade-up" data-aos-duration="1000">
+                <h3 class="text-2xl font-semibold mb-4 text-white">Weekly (7 days)</h3>
+                <ul class="text-lg text-gray-400">
+                    <li>Motor Bicycle - Rs. 3400</li>
+                    <li>Car - Rs. 5500</li>
+                    <li>Van - Rs. 6800</li>
+                    <li>Jeep - Rs. 8300</li>
+                    <li>Truck - Rs. 10,300</li>
+                </ul>
+            </div>
+
+            <!-- Monthly Plan Box -->
+            <div class="price-card" data-aos="fade-up" data-aos-duration="1000">
+                <h3 class="text-2xl font-semibold mb-4 text-white">Monthly (30 days)</h3>
+                <ul class="text-lg text-gray-400">
+                    <li>Motor Bicycle - Rs. 14,500</li>
+                    <li>Car - Rs. 25,000</li>
+                    <li>Van - Rs. 29,000</li>
+                    <li>Jeep - Rs. 35,000</li>
+                    <li>Truck - Rs. 44,000</li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section id="about" class="py-16 px-6 bg-gray-800" data-aos="fade-up" data-aos-duration="1000">
+    <div class="text-center max-w-4xl mx-auto">
+        <h2 class="text-3xl font-bold mb-6 text-white">About Lesi Parking</h2>
+        <p class="text-xl mb-6 text-gray-400">
+            Lesi Parking is designed to make parking easier for commuters, tourists, and locals. Our platform allows users to find, book, and manage parking spaces with a simple interface, while landowners can easily list their available spots.
+        </p>
+        <p class="text-lg text-gray-300">
+            Whether you're visiting a city or commuting to work, our service guarantees convenience, real-time availability, and a seamless booking process.
+        </p>
+    </div>
+</section>
+
+<!-- Key Features Section -->
+<section id="features" class="py-16 px-6 bg-gray-800" data-aos="fade-up" data-aos-duration="1000">
+    <div class="text-center max-w-4xl mx-auto">
+        <h2 class="text-3xl font-bold mb-6 text-white">Key Features</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+            <!-- Feature 1 -->
+            <div class="card" data-aos="fade-up" data-aos-duration="1000">
+                <h3 class="text-2xl font-semibold mb-4 text-white">Real-time Availability</h3>
+                <p class="text-lg text-gray-400">
+                    Users can find and book available parking spots in real-time. No more searching for parking.
+                </p>
+            </div>
+
+            <!-- Feature 2 -->
+            <div class="card" data-aos="fade-up" data-aos-duration="1000">
+                <h3 class="text-2xl font-semibold mb-4 text-white">Advanced Booking</h3>
+                <p class="text-lg text-gray-400">
+                    Book your parking spot in advance for peace of mind, knowing your space is reserved.
+                </p>
+            </div>
+
+            <!-- Feature 3 -->
+            <div class="card" data-aos="fade-up" data-aos-duration="1000">
+                <h3 class="text-2xl font-semibold mb-4 text-white">Seamless Payments</h3>
+                <p class="text-lg text-gray-400">
+                    Pay securely online, making the parking process smooth and efficient.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="py-16 px-6 bg-gray-800" data-aos="fade-up" data-aos-duration="1000">
+    <div class="text-center max-w-4xl mx-auto">
+        <h2 class="text-3xl font-bold mb-6 text-white">Contact Us</h2>
+        <p class="text-lg mb-6 text-gray-400">
+            Have questions or need assistance? We're here to help you. Reach out to us via the contact details below.
+        </p>
+
+        <div class="text-lg text-gray-400 mb-4">
+            <p>Email: <a href="mailto:support@lesiparking.com" class="text-indigo-500">support@lesiparking.com</a></p>
+            <p>Phone: <a href="tel:+94123456789" class="text-indigo-500">+94 123 456 789</a></p>
+        </div>
+
+        <a href="mailto:support@lesiparking.com" class="bg-gray-800 hover:bg-gray-700 text-white py-3 px-8 rounded-full text-xl transition duration-300 transform hover:scale-105">
+            Contact Support
+        </a>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-black text-white py-6 text-center">
+    <p>&copy; 2025 Lesi Parking. All rights reserved. | <a href="privacy-policy.html" class="text-gray-400 hover:text-white">Privacy Policy</a> | <a href="terms.html" class="text-gray-400 hover:text-white">Terms of Service</a></p>
+</footer>
+
+<script>
+    AOS.init();
+</script>
+
+</body>
+</html>
